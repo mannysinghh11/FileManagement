@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/all.min.css">
+        <script src = "js/all.min.js"></script>
+        <script src = "js/jquery-3.4.1.min.js"></script>
+        <script src = "js/bootstrap.bundle.min.js"></script>
+        <script src = "js/aws-sdk.min.js"></script>
+        <script src = "js/home.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <h2>File Management Service</h2>
+            <p id="fullName">Welcome, </p>
+            <small id="emailConfirmationText" class="form-text text-muted"></small>
+            <p></p>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#uploadFileModal">Upload a file</button>
+            <button class="btn btn-primary" onClick=deleteFile()>Delete Selected file</button>
+            <button class="btn btn-primary" onClick=updateFile()>Update Selected File</button>
+            <p></p>
+            <small id="downloadLinkText" class="form-text text-muted">In order to download the file, right click the file name and save link as.</small>
+            <table class="table" id="mainTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Selected</th>
+                        <th scope="col">File Name</th>
+                        <th scope="col">Uploaded By</th>
+                        <th scope="col">Upload Time</th>
+                        <th scope="col">Update Time</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td scope="row"><input type="radio" name="options" id="option1" autocomplete="off"></td>
+                        <td>Index.html</td>
+                        <td>Manny Singh</td>
+                        <td>9:27 PM, 10/21/19</td>
+                        <td>9:27 PM, 10/21/19</td>
+                        <td>Html file containing the homepage</td>
+                      </tr>
+                    </tbody>
+            </table>
+
+            <div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="uploadFileModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="uploadFileModal">Upload a file</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </body>
+</html>
