@@ -27,7 +27,12 @@ function loginUser(){
         localStorage.setItem("AccessToken", data.AuthenticationResult.AccessToken);
         localStorage.setItem("IdToken", data.AuthenticationResult.IdToken);
         localStorage.setItem("RefreshToken", data.AuthenticationResult.RefreshToken);
-        window.open("home.html", "_self");
+
+        if(username == "manpreetdot11@gmail.com"){
+          window.open("admin.html", "_self");
+        }else{
+          window.open("home.html", "_self");
+        }
       }
     });
 }

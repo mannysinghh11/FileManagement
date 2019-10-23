@@ -6,6 +6,7 @@
         <script src = "js/jquery-3.4.1.min.js"></script>
         <script src = "js/bootstrap.bundle.min.js"></script>
         <script src = "js/aws-sdk.min.js"></script>
+        <script src = "js/moment.js"></script>
         <script src = "js/index.js"></script>
     </head>
 
@@ -23,6 +24,7 @@
                 <button class="btn btn-primary" onClick=loginUser()>Login</button>
                 <small id="infoText" class="form-text text-muted"></small>
                 <a href="register.html"><h6>Don't have an account? Register here.</h6></a>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </div>
     </body>
 </html>

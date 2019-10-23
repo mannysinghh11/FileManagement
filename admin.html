@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/all.min.css">
+        <script src = "js/all.min.js"></script>
+        <script src = "js/jquery-3.4.1.min.js"></script>
+        <script src = "js/bootstrap.bundle.min.js"></script>
+        <script src = "js/aws-sdk.min.js"></script>
+        <script src = "js/moment.js"></script>
+        <script src = "js/admin.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Log out</a>
+                </li>
+            </ul>
+            <h2>File Management Service</h2>
+            <p id="fullName">Welcome, Admin </p>
+            <small id="emailConfirmationText" class="form-text text-muted"></small>
+            <p></p>
+            <button class="btn btn-primary" onClick=deleteFile()>Delete Selected file</button>
+            <p></p>
+            <small id="downloadLinkText" class="form-text text-muted">In order to download the file, right click the file name and save link as.</small>
+            <table class="table" id="mainTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Selected</th>
+                        <th scope="col">File Name</th>
+                        <th scope="col">Uploaded By</th>
+                        <th scope="col">Upload Time</th>
+                        <th scope="col">Update Time</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </body>
+</html>

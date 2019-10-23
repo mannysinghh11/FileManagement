@@ -49,6 +49,7 @@ function getUserInfo(){
             }
             document.getElementById("fullName").innerHTML = "Welcome, " + data.UserAttributes[2].Value + " " + data.UserAttributes[3].Value;
             localStorage.setItem("userID", data.Username);
+            localStorage.setItem("fullName", data.UserAttributes[2].Value + " " + data.UserAttributes[3].Value);
         }
     });
 }
@@ -115,27 +116,26 @@ function deleteFile(){
             }
         }
     };
-/*
+
     dynamoDB.deleteItem(deleteParams, function(err, data){
         if(err){
             console.log(err);
         }else{
             console.log(data);
-            //document.location.reload(true);
+            document.location.reload(true);
         }
     })
-    */
 
     //Deletes file from S3 storage
-    var S3 = new AWS.S3();
+    var lambda = new AWS.Lambda();
     var deleteObjectParams = {
-        Bucket: "www.uploadfileproject.com",
-        Key: "userUploadedFiles/" + fileToDeleteText[0]
+        FunctionName: "deleteFileFromS3",
+        Payload: JSON.stringify({"fileName":fileToDeleteText[0], "userID": localStorage.userID})
     };
 
-    S3.deleteObject(deleteObjectParams, function(err, data){
+    lambda.invoke(deleteObjectParams, function(err, data){
         if(err){
-            console.log(err.message)
+            console.log(err);
         }else{
             console.log(data);
         }
@@ -143,5 +143,130 @@ function deleteFile(){
 }
 
 function uploadFile(){
+    var file = document.getElementById("uploadFile").files[0];
 
+    if (file) {
+        var reader = new FileReader();
+        reader.readAsBinaryString(file, file.type);
+        reader.onload = function (evt) {
+            //Uploads a file to S3 storage
+            var lambda = new AWS.Lambda();
+            var uploadObjectParams = {
+                FunctionName: "uploadFileToS3",
+                Payload: JSON.stringify({"fileName":file.name, "content": evt.target.result, "type": file.type, "userID": localStorage.userID})
+            };
+
+            lambda.invoke(uploadObjectParams, function(err, data){
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(data);
+                }
+            });
+
+            //Adds a line in the database corresponding to the uploaded file
+            var dateTime = moment().format('MMMM Do YYYY, h:mm:ss a')
+            var description = document.getElementById("descriptionInput").value;
+
+            var dynamoDB = new AWS.DynamoDB();
+
+            var checkEntryParams = {
+                Key: {
+                    "fileName" : {
+                        S: file.name
+                    },
+                    "userID" : {
+                        S: localStorage.userID
+                    }
+                },
+                TableName: "UploadedFiles"
+            }
+
+            var uploadParams = {};
+
+            dynamoDB.getItem(checkEntryParams, function(err, data){
+                if(err){
+                    console.log(err);
+                }else{
+                    //Item exists, simply update
+                    if(data.Item != undefined){
+                        uploadParams = {
+                            TableName: "UploadedFiles",
+                            Item:{
+                                "description":{
+                                    S: description
+                                },
+                                "fileName":{
+                                    S: file.name
+                                },"updateTime":{
+                                    S: dateTime
+                                },"uploadedBy":{
+                                    S: localStorage.fullName
+                                },"url":{
+                                    S: "https://s3-us-west-1.amazonaws.com/www.uploadfileproject.com/userUploadedFile/" + file.name
+                                }, "userID":{
+                                    S: localStorage.userID
+                                }, "uploadTime":{
+                                    S: data.Item.uploadTime.S
+                                }
+                            }
+                        };
+
+                        if(description != ""){
+                            dynamoDB.putItem(uploadParams, function(err, data){
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    console.log(data);
+                                    document.location.reload(true);
+                                }
+                            })
+                        }else{           
+                            document.getElementById("fileUploadError").innerHTML = "Error uploading file, please make sure the file is selected and description is filled out.";
+                            document.getElementById("fileUploadError").className = "form-text alert-warning";
+                        }
+                    }else if(data.Item == undefined){
+                        uploadParams = {
+                            TableName: "UploadedFiles",
+                            Item:{
+                                "description":{
+                                    S: description
+                                },
+                                "fileName":{
+                                    S: file.name
+                                },"updateTime":{
+                                    S: dateTime
+                                },"uploadedBy":{
+                                    S: localStorage.fullName
+                                },"url":{
+                                    S: "https://s3-us-west-1.amazonaws.com/www.uploadfileproject.com/userUploadedFile/" + file.name
+                                }, "userID":{
+                                    S: localStorage.userID
+                                }, "uploadTime":{
+                                    S: dateTime
+                                }
+                            }
+                        };
+
+                        if(description != ""){
+                            dynamoDB.putItem(uploadParams, function(err, data){
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    console.log(data);
+                                    document.location.reload(true);
+                                }
+                            })
+                        }else{           
+                            document.getElementById("fileUploadError").innerHTML = "Error uploading file, please make sure the file is selected and description is filled out.";
+                            document.getElementById("fileUploadError").className = "form-text alert-warning";
+                        }
+                    }
+                }
+            })
+        }
+        reader.onerror = function (evt) {
+            console.log("error")
+        }
+    }
 }
