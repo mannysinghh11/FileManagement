@@ -1,6 +1,6 @@
 var config = new AWS.Config({
-    accessKeyId: 'AKIAJESIFCN7Y2XRWZAQ', secretAccessKey: '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', region: 'us-east-1'
-  });
+    accessKeyId: 'AKIAI6CRYRJ4DJYBGYLA', secretAccessKey: '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', region: 'us-east-1'
+});
 AWS.config.update(config);
 
 var cognitoIdentity = new AWS.CognitoIdentityServiceProvider();
