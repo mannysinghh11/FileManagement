@@ -1,5 +1,5 @@
 var config = new AWS.Config({
-    accessKeyId: 'AKIAI6CRYRJ4DJYBGYLA', secretAccessKey: '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', region: 'us-east-1'
+    accessKeyId: 'AKIA2ZNGSL7Q56QUDD76', secretAccessKey: '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', region: 'us-east-1'
 });
 AWS.config.update(config);
 
