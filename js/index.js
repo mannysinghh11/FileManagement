@@ -1,7 +1,7 @@
 function loginUser(){
-  var config = new AWS.Config({
-    accessKeyId: 'AKIA2ZNGSL7Q56QUDD76', secretAccessKey: '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', region: 'us-east-1'
-});
+var config = new AWS.Config({
+        accessKeyId: acessKeyID, secretAccessKey: secretAccessKey, region: 'region'
+    });
 
     AWS.config.update(config);
 
