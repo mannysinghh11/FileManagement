@@ -1,3 +1,47 @@
-File management Software.
+# FileManagement
 
-User is able to upload files with a description and download them at a later date. The files can also be updated. There is an admin position that is able to view all of the files and delete them at will.
+### Live Demo
+
+Currently not live due to AWS charging for upkeep, screenshots are below.
+
+## Project Introduction (What the application does, feature list)
+  `The user is able to easily navigate our webpage`
+
+  `The user is able to sign up and login`
+
+  `The user is able to view all previously uploaded files`
+
+  `The user is able to upload a new file`
+  
+  `The user is able to delete an uploaded file`
+  
+  `Admin login available to be able to view files uploaded by all users`
+  
+
+## Sample Demo Screenshots
+
+![Custom Registration](https://www.dropbox.com/s/g5k2wps1aui7xhw/signup.png?dl=0 "Custom Registration")
+
+![Login](https://www.dropbox.com/s/ub97pcci9qwio5l/login.png?dl=0 "Login")
+
+![Uploading a File](https://www.dropbox.com/s/wrsw80d8ta93kim/uploadFile.png?dl=0 "Uploading a file")
+
+![Downloading, Updating, and Viewing files](https://www.dropbox.com/s/5w62f6z9wb0snws/updateFile.png?dl=0 "Downloading, Updating, and Viewing files")
+
+![Admin Panel](https://www.dropbox.com/s/e6s3p6eyhk9a72w/adminPanel.png?dl=0 "Admin Panel")
+
+
+## Pre-requisites Set Up
+
+### AWS
+   * `S3 bucket`
+ 
+   * `Lambda Function`
+
+  * `Cognito`
+ 
+  * `DynamoDB`
+
+
+
+
